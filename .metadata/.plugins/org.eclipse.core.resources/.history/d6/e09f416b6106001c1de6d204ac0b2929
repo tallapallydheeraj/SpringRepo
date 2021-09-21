@@ -1,0 +1,7 @@
+package com.dbs.web.beans.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface LoanRepository extends CrudRepository<T, ID> {
+
+}

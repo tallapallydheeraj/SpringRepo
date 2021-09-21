@@ -1,0 +1,22 @@
+package com.dbs.payment.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dbs.payment.model.SDNList;
+import com.dbs.payment.repo.SDNRepository;
+
+@Service
+public class SDNService {
+	@Autowired
+	private SDNRepository repo;
+	
+	public List<String> findAll(){
+		List<String> l=new ArrayList<>();
+		this.repo.findAll().forEach(ele -> l.add(ele.getName()));
+		return l;
+	}
+}

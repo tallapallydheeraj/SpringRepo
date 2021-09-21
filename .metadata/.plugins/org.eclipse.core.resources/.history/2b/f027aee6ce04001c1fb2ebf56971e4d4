@@ -1,0 +1,10 @@
+package com.dbs.spring.service;
+
+import com.dbs.spring.repository.ProductRepository;
+
+public class ProductService {
+	private ProductRepository repo;
+	public long getCount() {
+		return this.repo.count();
+	}
+}

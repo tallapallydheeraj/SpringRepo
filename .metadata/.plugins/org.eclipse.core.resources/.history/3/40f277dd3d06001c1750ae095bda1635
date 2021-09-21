@@ -1,0 +1,12 @@
+package com.dbs.web.mvc;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class EntryController {
+	
+	public String homePage() {
+		System.out.println("Index Home page");
+		return "index";
+	}
+}

@@ -1,0 +1,18 @@
+package com.dbs.web.mvc;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class EntryController {
+	@GetMapping
+	public String homePage() {
+		System.out.println("Index Home page");
+		return "index";
+	}
+	@GetMapping
+	public String loginPage() {
+		System.out.println("Login page");
+		return "login";
+	}
+}

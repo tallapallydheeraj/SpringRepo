@@ -1,0 +1,82 @@
+package com.dbs.web.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.dbs.web.beans.Product;
+import com.dbs.web.service.ProductService;
+
+// this inofrms spring that it is a web service
+// REST API => http://localhost:8080/products
+// mapping for this url with a method
+@RestController
+public class ProductRestController {
+
+	@Autowired
+	private ProductService productService;
+
+	// generalized form for all HTTP methods
+	//@RequestMapping(path = "/products", method = RequestMethod.GET)
+	@GetMapping("/products")
+	public List<Product> findProducts()
+	{
+		return this.productService.getProducts();
+	}
+	//http://localhost:8080/products/2
+	@GetMapping("/products/{pid}")
+	public Product findProductById(@PathVariable int pid)
+	{
+		return this.productService.findProductById(pid);
+	}
+
+	@PutMapping("/products")
+	public ResponseEntity<String> updateProduct(@RequestBody Product product)
+	{
+		if(this.productService.updateProduct(product))
+			return  ResponseEntity
+					.status(HttpStatus.ACCEPTED)
+					.body("Product updated with id "+product.getPid());
+		return  ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body("Product not updated with id "+product.getPid());
+	}
+	@PostMapping("/products")
+	public ResponseEntity<String> insertProduct(@RequestBody Product product)
+	{
+		if(this.productService.insertProduct(product))
+			return  ResponseEntity
+					.status(HttpStatus.ACCEPTED)
+					.body("Product inserted with id "+product.getPid());
+		return  ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body("Product not inserted with id "+product.getPid());
+	}
+	@DeleteMapping("/products/{pid}")
+	public  ResponseEntity<String> deleteProductById(@PathVariable int pid)
+	{
+		try {
+			if(this.productService.deleteProduct(pid))
+				return  ResponseEntity
+						.status(HttpStatus.ACCEPTED)
+						.body("Product deleted with id "+pid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return  ResponseEntity
+					.status(HttpStatus.BAD_REQUEST)
+					.body(e.getMessage());
+		}
+		return  ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body("Product not deleted with id "+pid);
+	}
+}

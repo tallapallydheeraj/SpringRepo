@@ -1,0 +1,5 @@
+package com.dbs.web.rest;
+
+public class ProductRestController {
+
+}

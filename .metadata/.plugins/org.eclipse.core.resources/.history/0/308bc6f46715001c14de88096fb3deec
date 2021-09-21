@@ -1,0 +1,40 @@
+package com.dbs.payment.service;
+
+import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.dbs.payment.model.Transaction;
+import com.dbs.payment.repo.CustomerRepository;
+import com.dbs.payment.repo.TransactionRepository;
+
+
+@Service
+public class TransactionService {
+	@Autowired
+	private CustomerRepository crepo;
+	@Autowired
+	private TransactionRepository repo;
+	
+	public int postTransaction(Transaction tran) {
+		
+			if(this.repo.findById(tran.getTransactionid()).isPresent())
+				return -1;
+			tran.setCustomer(crepo.findById(tran.
+					getCustomer().getCustomerid()).orElseThrow());
+			try {
+				return this.repo.save(tran).getTransactionid();
+			}catch(IllegalArgumentException e )
+			{
+				return -1;
+			}
+		
+	}
+	public List<Transaction> getAllBycustomerId(String id){
+		return this.repo.findAllByCustomerCustomerid(id);
+	}
+}

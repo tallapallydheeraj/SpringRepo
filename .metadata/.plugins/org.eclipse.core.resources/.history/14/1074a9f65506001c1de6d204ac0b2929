@@ -1,0 +1,31 @@
+package com.dbs.web.mvc;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import com.dbs.web.beans.User;
+import com.dbs.web.repository.CustomerRepository;
+
+@Controller
+public class EntryController {
+	@Autowired
+	private CustomerRepository repo;
+	@GetMapping
+	public String homePage() {
+		System.out.println("Index Home page");
+		return "index";
+	}
+	@GetMapping("/login")
+	public String loginPage() {
+		System.out.println("Login page");
+		return "login";
+	}
+	@PostMapping("/login")
+	public String validate(User user) {
+		System.out.println("validate "+user);
+		return "customer";
+	}
+}

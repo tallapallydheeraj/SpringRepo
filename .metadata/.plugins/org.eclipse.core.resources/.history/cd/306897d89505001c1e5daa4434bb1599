@@ -1,0 +1,28 @@
+package com.dbs.web.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.dbs.web.beans.Product;
+import com.dbs.web.service.ProductService;
+
+@RestController
+public class ProductRestController {
+	@Autowired
+	private ProductService productService;
+	
+	public ProductRestController() {
+		System.out.println("Product Rest Controller constructor");
+		
+	}
+	//@RequestMapping(path="/products", method = RequestMethod.GET)
+	@GetMapping("/products")
+	public List<Product> findProducts(){
+		return this.productService.getProducts();
+	}
+}

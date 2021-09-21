@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dbs.hibernate.HIbernateDemo.model">
+	<class name="Customer">
+		<id name="customerEmailId" column="emailid">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="customerName" ></property>
+		<property name="customerAddress" column="address"></property>
+		<property name="customerIdentity" ></property>
+		<property name="annualIncome" ></property>
+		<property name="incomeTaxReturnAttached" ></property>
+	</class>
+
+
+</hibernate-mapping>

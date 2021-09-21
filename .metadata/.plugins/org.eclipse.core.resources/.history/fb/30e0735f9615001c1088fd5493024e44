@@ -1,0 +1,5 @@
+package com.dbs.payment.model;
+
+public class ReponsePage {
+
+}

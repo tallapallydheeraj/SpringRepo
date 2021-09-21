@@ -1,0 +1,47 @@
+package com.dbs.web.mvc;
+
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import com.dbs.web.beans.Customer;
+import com.dbs.web.beans.User;
+import com.dbs.web.repository.CustomerRepository;
+
+@Controller
+public class EntryController {
+	@Autowired
+	private CustomerRepository repo;
+	Logger logger = Logger.getLogger(EntryController.class.getName()); 
+	@GetMapping
+	public String homePage() {
+		System.out.println("Index Home page");
+		return "index";
+	}
+	@GetMapping("/login")
+	public String loginPage() {
+		System.out.println("Login page");
+		return "login";
+	}
+	@PostMapping("/login")
+	public String validate(User user,
+			Map<String,Customer> map,
+			Map<String,String> mapError) {
+		System.out.println("validate "+user);
+		logger.info("Map "+map.keySet());
+		Optional<Customer> cust=this.repo.findById(user.getEmail());
+		if(cust.isPresent()) {
+			Customer customer=cust.get();
+			map.put("customer", customer);
+			return "customer";
+		}
+		mapError.put("error", "Invalid Credentials");
+		return "login";
+	}
+}

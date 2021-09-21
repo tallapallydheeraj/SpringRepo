@@ -1,0 +1,5 @@
+package com.dbs.web.mvc;
+
+public class EntryController {
+
+}

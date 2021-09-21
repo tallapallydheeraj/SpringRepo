@@ -1,0 +1,21 @@
+package com.dbs.web.rest;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import com.dbs.web.beans.Product;
+import com.dbs.web.service.ProductService;
+
+@RestController
+public class ProductRestController {
+	private ProductService productService;
+	
+	public ProductRestController() {
+		System.out.println("Product Rest Controller constructor");
+		
+	}
+	public List<Product> findProducts(){
+		return this.productService.getProducts();
+	}
+}
